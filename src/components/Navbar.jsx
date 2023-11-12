@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Navbar.css';
+import './navbar.css';
 
 const Navbar = () => {
     const [underline, setUnderline] = useState(0);
