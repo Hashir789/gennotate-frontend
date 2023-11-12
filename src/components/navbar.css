@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lateef:wght@400;600&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    padding: .5vw 2vw;
+    background: white;
+}
+.logo{
+    font-family: 'Amiri Quran', serif;
+    font-family: 'Crimson Pro', serif;
+    font-family: 'Lateef', serif;
+    font-weight: 900;
+    font-size: x-large;
+    color: #10a36e;
+    display: inline-block;
+}
+.user-img{
+    background: black;
+    color: white;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+    color: #919191;
+    font-weight: 600;
+}
+li{
+    padding: .5vw 0vw;
+}
+li:hover{
+    cursor: pointer;
+}
+.active{
+    color: #10a36e;
+    border-bottom: 2px solid #10a36e;
+}
+.underline{
+    margin-top: .5vw;
+    width: 1%;
+    height: 2px;
+    display: flex;
+    transition: width 1s ease;
+}
+.underline{
+    width: 100%;
+}
