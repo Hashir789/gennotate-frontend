@@ -5,6 +5,8 @@ import * as cornerstoneTools from "cornerstone-tools";
 import Hammer from "hammerjs";
 import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
 import './editor.css';
+import Image1 from '../../assets/oct.png'
+import Image2 from '../../assets/mask.png'
 
 cornerstoneTools.external.cornerstone = cornerstone;
 cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
@@ -16,9 +18,7 @@ const imageId = "https://source.unsplash.com/random/496x512/?medical"
 
 const divStyle = {
   width: "496px",
-  height: "512px",
-  position: "relative",
-  color: "white"
+  height: "512px"
 };
 
 class CornerstoneElement extends React.Component {
@@ -140,7 +140,19 @@ const Cornerstone = () => {
   return (
     <div>
       <div className="container">
-        <div className="container1"></div>
+        <div className="container1">
+          <p className="heading1">Showcase</p>
+          <div className="showcase-container">
+            <img src={Image1} alt='' width='100%'/>
+            <p className="showcase-text">Original Image</p>
+            <img src={Image2} alt='' width='100%'/>
+            <p className="showcase-text">Segmented Layer 1</p>
+            <img src={Image2} alt='' width='100%'/>
+            <p className="showcase-text">Segmented Layer 2</p>
+            <img src={Image2} alt='' width='100%'/>
+            <p className="showcase-text">Segmented Layer 3</p>
+          </div>
+        </div>
         <div className="container2">
           <div className="cornerstonejs">
             <CornerstoneElement stack={{ ...stack }} />

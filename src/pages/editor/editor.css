@@ -19,6 +19,13 @@
     margin-right: 5px;
     margin-top: 5px;
     border-top-right-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.container1::-webkit-scrollbar {
+    display: none;
 }
 .container2{
     width: 60%;
@@ -44,4 +51,29 @@
     border: 4px solid #10a36e;
     border-radius: 10px;
     background-color: #f1f3f4;
+}
+.heading1{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #616161;
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+}
+.showcase-container{
+    padding: 20px;
+}
+.showcase-text{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: #616161;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+img{
+    border: 4px solid #10a36e;
+    border-radius: 10px;
 }
