@@ -4,32 +4,20 @@ import * as cornerstoneMath from "cornerstone-math";
 import * as cornerstoneTools from "cornerstone-tools";
 import Hammer from "hammerjs";
 import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
+import './editor.css';
 
 cornerstoneTools.external.cornerstone = cornerstone;
 cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
 cornerstoneWebImageLoader.external.cornerstone = cornerstone;
 cornerstoneTools.external.Hammer = Hammer;
 
-const imageId = "https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg";
+// const imageId = "https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg";
+const imageId = "https://source.unsplash.com/random/496x512/?medical"
 
 const divStyle = {
-  width: "512px",
-  height: "400px",
+  width: "496px",
+  height: "512px",
   position: "relative",
-  color: "white"
-};
-
-const bottomLeftStyle = {
-  bottom: "5px",
-  left: "5px",
-  position: "absolute",
-  color: "white"
-};
-
-const bottomRightStyle = {
-  bottom: "5px",
-  right: "5px",
-  position: "absolute",
   color: "white"
 };
 
@@ -58,11 +46,6 @@ class CornerstoneElement extends React.Component {
           }}
         >
           <canvas className="cornerstone-canvas" />
-          <div style={bottomLeftStyle}>Zoom: {this.state.viewport.scale}</div>
-          <div style={bottomRightStyle}>
-            WW/WC: {this.state.viewport.voi.windowWidth} /{" "}
-            {this.state.viewport.voi.windowCenter}
-          </div>
         </div>
       </div>
     );
@@ -141,7 +124,7 @@ const stack = {
   currentImageIdIndex: 0
 };
 
-const Editor = () => {
+const Cornerstone = () => {
   const FreehandRoi = () => {
     cornerstoneTools.addTool(cornerstoneTools.FreehandRoiTool);
     cornerstoneTools.setToolActive("FreehandRoi", { mouseButtonMask: 1 });
@@ -156,15 +139,25 @@ const Editor = () => {
   };
   return (
     <div>
-      <CornerstoneElement stack={{ ...stack }} />
-      <button onClick={FreehandRoi} style={{backgroundColor: 'whitesmoke', color: '#000000'}}>
-        Freehand ROI
-      </button>
-      <button onClick={Wwwc} style={{backgroundColor: 'whitesmoke', color: '#000000', marginLeft: '20px'}}>
-        WWWC
-      </button>
+      <div className="container">
+        <div className="container1"></div>
+        <div className="container2">
+          <div className="cornerstonejs">
+            <CornerstoneElement stack={{ ...stack }} />
+          </div>
+        </div>
+        <div className="container3"></div>
+      </div>
     </div>
   )
 }
 
-export default Editor
+export default Cornerstone
+
+{/* <CornerstoneElement stack={{ ...stack }} />
+<button onClick={FreehandRoi} style={{backgroundColor: 'whitesmoke', color: '#000000'}}>
+  Freehand ROI
+</button>
+<button onClick={Wwwc} style={{backgroundColor: 'whitesmoke', color: '#000000', marginLeft: '20px'}}>
+  WWWC
+</button> */}

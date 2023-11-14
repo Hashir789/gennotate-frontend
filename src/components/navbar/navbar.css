@@ -10,6 +10,7 @@
     justify-content: space-between;
     position: sticky;
     top: 0;
+    height: 60px;
     padding: .5vw 2vw;
     background: white;
 }
@@ -22,6 +23,9 @@
     color: #10a36e;
     display: inline-block;
 }
+.logo:hover{
+    cursor: pointer;
+}
 .user-img{
     background: black;
     color: white;
@@ -32,6 +36,12 @@
     align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
+}
+.user-img:hover{
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    cursor: pointer;
 }
 ul{
     list-style: none;
@@ -50,17 +60,10 @@ li{
 li:hover{
     cursor: pointer;
 }
-.active{
-    color: #10a36e;
-    border-bottom: 2px solid #10a36e;
-}
 .underline{
     margin-top: .5vw;
     width: 1%;
     height: 2px;
     display: flex;
     transition: width 1s ease;
-}
-.underline{
-    width: 100%;
 }
