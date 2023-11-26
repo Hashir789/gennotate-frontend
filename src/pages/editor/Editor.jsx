@@ -14,11 +14,12 @@ cornerstoneWebImageLoader.external.cornerstone = cornerstone;
 cornerstoneTools.external.Hammer = Hammer;
 
 // const imageId = "https://rawgit.com/cornerstonejs/cornerstoneWebImageLoader/master/examples/Renal_Cell_Carcinoma.jpg";
-const imageId = "https://source.unsplash.com/random/496x512/?medical"
+// const imageId = "https://source.unsplash.com/random/496x512/?medical"
+const imageId = "https://cdn.jsdelivr.net/gh/Hashir789/hashir@main/105new_010_Normal.jpg";
 
 const divStyle = {
-  width: "496px",
-  height: "512px"
+  width: "765px",
+  height: "500px"
 };
 
 class CornerstoneElement extends React.Component {
@@ -81,7 +82,6 @@ class CornerstoneElement extends React.Component {
     cornerstone.loadImage(this.state.imageId).then(image => {
       // Display the first image
       cornerstone.displayImage(element, image);
-
       // Add the stack tool state to the enabled element
       const stack = this.props.stack;
       cornerstoneTools.addStackStateManager(element, ["stack"]);
@@ -128,7 +128,7 @@ const Cornerstone = () => {
   const FreehandRoi = () => {
     cornerstoneTools.addTool(cornerstoneTools.FreehandRoiTool);
     cornerstoneTools.setToolActive("FreehandRoi", { mouseButtonMask: 1 });
-    cornerstoneTools.toolStyle.setToolWidth(6);
+    cornerstoneTools.toolStyle.setToolWidth(3);
     cornerstoneTools.toolColors.setToolColor('#FFFF00');
     cornerstoneTools.updateImage(element);
   };
@@ -136,6 +136,27 @@ const Cornerstone = () => {
     const WwwcTool = cornerstoneTools.WwwcTool;
     cornerstoneTools.addTool(WwwcTool)
     cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
+  };
+  const zoom = () => {
+    cornerstoneTools.addTool(cornerstoneTools.ZoomTool, {
+      configuration: {
+        invert: false,
+        preventZoomOutsideImage: false,
+        minScale: .1,
+        maxScale: 20.0,
+      }
+    });
+    cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 1 })
+  };
+  const pan = () => {
+    const PanTool = cornerstoneTools.PanTool;
+    cornerstoneTools.addTool(PanTool)
+    cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 })
+  };
+  const magnify = () => {
+    const MagnifyTool = cornerstoneTools.MagnifyTool;
+    cornerstoneTools.addTool(MagnifyTool)
+    cornerstoneTools.setToolActive('Magnify', { mouseButtonMask: 1 })
   };
   return (
     <div>
@@ -157,6 +178,13 @@ const Cornerstone = () => {
           <div className="cornerstonejs">
             <CornerstoneElement stack={{ ...stack }} />
           </div>
+          <div className="toolbar">
+            <button className="tool" onClick={FreehandRoi}>1</button>
+            <button className="tool" onClick={Wwwc}>2</button>
+            <button className="tool" onClick={zoom}>3</button>
+            <button className="tool" onClick={pan}>4</button>
+            <button className="tool" onClick={magnify}>5</button>
+          </div>
         </div>
         <div className="container3"></div>
       </div>
@@ -165,11 +193,3 @@ const Cornerstone = () => {
 }
 
 export default Cornerstone
-
-{/* <CornerstoneElement stack={{ ...stack }} />
-<button onClick={FreehandRoi} style={{backgroundColor: 'whitesmoke', color: '#000000'}}>
-  Freehand ROI
-</button>
-<button onClick={Wwwc} style={{backgroundColor: 'whitesmoke', color: '#000000', marginLeft: '20px'}}>
-  WWWC
-</button> */}
