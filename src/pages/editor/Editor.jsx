@@ -61,6 +61,8 @@ class CornerstoneElement extends React.Component {
         viewport: cornerstone.getDefaultViewport(null, undefined),
         imageId: props.stack.imageIds[0],
         rotate: 0,
+        list: [0, 0, 0, 0, 0, 0],
+        layers: []
       };
   
       this.onImageRendered = this.onImageRendered.bind(this);
@@ -74,7 +76,7 @@ class CornerstoneElement extends React.Component {
         {id: 3, text1: 'Ww/wc', text2: `${String(this.state.viewport.voi.windowWidth).substr(0, 6)}/${String(this.state.viewport.voi.windowCenter).substr(0, 6)}`, func1: (e)=>{ const inputValue = parseFloat(document.getElementById('myInput3').value); const inputValue2 = parseFloat(document.getElementById('myInput32').value); const element = this.element; const viewport = cornerstone.getViewport(element); viewport.voi.windowCenter = inputValue2; viewport.voi.windowWidth = inputValue; cornerstone.setViewport(element, viewport); e.preventDefault();}, func2: (e)=>{ const element = this.element; const viewport = cornerstone.getViewport(element); viewport.voi.windowWidth = 255; viewport.voi.windowCenter = 128; cornerstone.setViewport(element, viewport); e.preventDefault();}},
         {id: 1, text1: 'Zoom', text2: this.state.viewport.scale.toFixed(2), func1: (e)=>{ const inputValue = parseFloat(document.getElementById('myInput1').value); const element = this.element; const viewport = cornerstone.getViewport(element); viewport.scale = inputValue; cornerstone.setViewport(element, viewport); e.preventDefault();}, func2: (e)=>{ const element = this.element; const viewport = cornerstone.getViewport(element); viewport.scale = 1; cornerstone.setViewport(element, viewport); e.preventDefault();}},
         {id: 2, text1: 'Rotate', text2: this.state.viewport.rotation.toFixed(2), func1: (e)=>{ const inputValue = parseFloat(document.getElementById('myInput2').value); const element = this.element; const viewport = cornerstone.getViewport(element); viewport.rotation = inputValue; cornerstone.setViewport(element, viewport); e.preventDefault();}, func2: (e)=>{ const element = this.element; const viewport = cornerstone.getViewport(element); console.log(viewport); viewport.rotation = 0; cornerstone.setViewport(element, viewport); e.preventDefault();}},
-        {id: 4, text1: 'Loc', text2: `(${this.state.viewport.translation.x.toFixed(2)}, ${this.state.viewport.translation.y.toFixed(2)})`, func1: (e)=>{ const inputValue = parseFloat(document.getElementById('myInput4').value); const inputValue2 = parseFloat(document.getElementById('myInput42').value); const element = this.element; const viewport = cornerstone.getViewport(element); viewport.translation.x = inputValue; viewport.translation.y = inputValue2; cornerstone.setViewport(element, viewport); e.preventDefault();}, func2: (e)=>{ const element = this.element; const viewport = cornerstone.getViewport(element); console.log(viewport); viewport.translation.x = 0; viewport.translation.y = 0; cornerstone.setViewport(element, viewport); e.preventDefault();}},
+        {id: 4, text1: 'Pan', text2: `(${this.state.viewport.translation.x.toFixed(2)}, ${this.state.viewport.translation.y.toFixed(2)})`, func1: (e)=>{ const inputValue = parseFloat(document.getElementById('myInput4').value); const inputValue2 = parseFloat(document.getElementById('myInput42').value); const element = this.element; const viewport = cornerstone.getViewport(element); viewport.translation.x = inputValue; viewport.translation.y = inputValue2; cornerstone.setViewport(element, viewport); e.preventDefault();}, func2: (e)=>{ const element = this.element; const viewport = cornerstone.getViewport(element); console.log(viewport); viewport.translation.x = 0; viewport.translation.y = 0; cornerstone.setViewport(element, viewport); e.preventDefault();}},
       ]
       return (
         <div className="container">
@@ -85,7 +87,7 @@ class CornerstoneElement extends React.Component {
                         this.setState({ currentImage: index });
                         this.updateImage(index);
                     }}>
-                    <img src={layer.imagee} alt="" width="200px" style={{ borderRadius: '10px', border: this.state.currentImage===index?'4px solid #10a36e':'none' }} />
+                    <img src={layer.imagee} alt="" width="85%" style={{ borderRadius: '10px', border: this.state.currentImage===index?'4px solid #10a36e':'none' }} />
                     <div className="image-caption">{layer.caption}</div>
                     </div>
                 ))}
@@ -287,6 +289,15 @@ class CornerstoneElement extends React.Component {
                   </div>
                 </div>
               </div>))}
+              <div style={{padding: '10px'}}><hr/></div>
+              {this.state.layers.map((item, index) => (item.name.substr(0,12)==='Freehand Roi'?<div className='box' style={{paddingBottom: '10px', height: this.state.rotate===5+index?`${45*(item.points.length)}px`:55 , transition: 'all 0.3s ease'}}><div className='box1'><div className="box1-frontDisplay"><div className="box1-name">{item.name}</div><div className="box1-icon"><MdOutlineArrowDropDown style={{fontSize: '24px', cursor: 'pointer', transform: `rotate(${this.state.rotate===5+index?180:0}deg)`, transition: 'all 0.3s ease'}} onClick={()=>{ this.setState({ rotate: this.state.rotate===5+index?0:5+index }); }}/></div></div>
+              {item.points.map((itam, indexx) => (<div style={{margin: '10px', height: '20px'}}>{indexx+1}. {(String(itam[0])).substr(0, 6)}, {(String(itam[1])).substr(0, 6)}</div>))}
+              </div></div>:
+              <div className='box' style={{paddingBottom: '10px', height: this.state.rotate===5+index?115:55 , transition: 'all 0.3s ease'}}><div className='box1'><div className="box1-frontDisplay"><div className="box1-name">{item.name}</div><div className="box1-icon"><MdOutlineArrowDropDown style={{fontSize: '24px', cursor: 'pointer', transform: `rotate(${this.state.rotate===5+index?180:0}deg)`, transition: 'all 0.3s ease'}} onClick={()=>{ this.setState({ rotate: this.state.rotate===5+index?0:5+index }); }}/></div></div>
+              <div style={{margin: '10px', height: '20px'}}>Start: {(String(item.points[0])).substr(0, 6)}, {(String(item.points[1])).substr(0, 6)}</div>
+              {item.name.substr(0,11)!=='Text Marker'?<div style={{margin: '10px', height: '20px'}}>End: {(String(item.points[2])).substr(0, 6)}, {(String(item.points[3])).substr(0, 6)}</div>:''}
+              </div></div>
+              ))}
             </div>
         </div>
       );
@@ -302,7 +313,7 @@ class CornerstoneElement extends React.Component {
         viewport
       });
     }
-  
+
     onNewImage() {
       const enabledElement = cornerstone.getEnabledElement(this.element);
   
@@ -332,6 +343,45 @@ class CornerstoneElement extends React.Component {
         );
         element.addEventListener("cornerstonenewimage", this.onNewImage);
         window.addEventListener("resize", this.onWindowResize);
+        element.addEventListener(cornerstoneTools.EVENTS.MEASUREMENT_COMPLETED, (event) => {
+          const measurementData = event.detail.measurementData;
+          if (measurementData) {
+            if (event.detail.toolType.includes('FreehandRoi')) {
+                let tempArray = []
+                for (let i = 0; i < measurementData.handles.points.length; i++) {
+                  tempArray.push([measurementData.handles.points[i].x, measurementData.handles.points[i].y])
+                }
+                this.setState({ layers: [...this.state.layers, {name: `Freehand Roi ${this.state.list[0] + 1}`, points: tempArray}] })
+                this.setState({ list: [this.state.list[0] + 1, ...this.state.list.slice(1, 6)]})
+            }
+            else if (event.detail.toolType.includes('RectangleRoi')) {
+              const tempArray = [measurementData.handles.start.x, measurementData.handles.start.y, measurementData.handles.end.x, measurementData.handles.end.y]
+              this.setState({ layers: [...this.state.layers, {name: `Rectangle Roi ${this.state.list[1] + 1}`, points: tempArray}] })
+              this.setState({ list: [...this.state.list.slice(0, 1), this.state.list[1] + 1, ...this.state.list.slice(2, 6)]})
+            }
+            else if (event.detail.toolType.includes('Length')) {
+              const tempArray = [measurementData.handles.start.x, measurementData.handles.start.y, measurementData.handles.end.x, measurementData.handles.end.y]
+              this.setState({ layers: [...this.state.layers, {name: `Length ${this.state.list[2] + 1}`, points: tempArray}] })
+              this.setState({ list: [...this.state.list.slice(0, 2), this.state.list[2] + 1, ...this.state.list.slice(3, 6)]})
+            }
+            else if (event.detail.toolType.includes('ArrowAnnotate')) {
+              const tempArray = [measurementData.handles.start.x, measurementData.handles.start.y, measurementData.handles.end.x, measurementData.handles.end.y]
+              this.setState({ layers: [...this.state.layers, {name: `Arrow Annotate ${this.state.list[3] + 1}`, points: tempArray, text: measurementData.text}] })
+              this.setState({ list: [...this.state.list.slice(0, 3), this.state.list[3] + 1, ...this.state.list.slice(4, 6)]})
+            }
+            else if (event.detail.toolType.includes('EllipticalRoi')) {
+              const tempArray = [measurementData.handles.start.x, measurementData.handles.start.y, measurementData.handles.end.x, measurementData.handles.end.y]
+              this.setState({ layers: [...this.state.layers, {name: `Elliptical Roi ${this.state.list[4] + 1}`, points: tempArray}] })
+              this.setState({ list: [...this.state.list.slice(0, 4), this.state.list[4] + 1, ...this.state.list.slice(5, 6)]})
+            }
+            else if (event.detail.toolType.includes('TextMarker')) {
+              const tempArray = [measurementData.handles.end.x, measurementData.handles.end.y]
+              this.setState({ layers: [...this.state.layers, {name: `Text Marker ${this.state.list[5] + 1}`, points: tempArray}] })
+              this.setState({ list: [...this.state.list.slice(0, 5), this.state.list[5] + 1, ...this.state.list.slice(6, 6)]})
+              console.log(this.state.list, this.state.layers)
+            }
+          }
+      });
       });
     }
 
@@ -352,7 +402,7 @@ class CornerstoneElement extends React.Component {
       element.removeEventListener("cornerstonenewimage", this.onNewImage);
   
       window.removeEventListener("resize", this.onWindowResize);
-  
+      // cornerstoneTools.freehand.element.removeEventListener('cornerstonetoolsmouseup', this.onMeasurementCompleted);
       cornerstone.disable(element);
     }
   
